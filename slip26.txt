@@ -1,0 +1,127 @@
+import java.util.Scanner;
+
+public class MatrixAddition {
+
+    // Function to add two matrices
+    public static int[][] addMatrices(int[][] A, int[][] B) {
+        int rows = A.length;
+        int cols = A[0].length;
+        int[][] result = new int[rows][cols];
+
+        for (int i = 0; i < rows; i++)
+            for (int j = 0; j < cols; j++)
+                result[i][j] = A[i][j] + B[i][j];
+
+        return result;
+    }
+
+    // Function to print a matrix
+    public static void printMatrix(int[][] matrix) {
+        for (int[] row : matrix) {
+            for (int val : row)
+                System.out.print(val + " ");
+            System.out.println();
+        }
+    }
+
+    // Main method
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter number of rows: ");
+        int rows = sc.nextInt();
+        System.out.print("Enter number of columns: ");
+        int cols = sc.nextInt();
+
+        int[][] A = new int[rows][cols];
+        int[][] B = new int[rows][cols];
+
+        System.out.println("Enter elements of Matrix A:");
+        for (int i = 0; i < rows; i++)
+            for (int j = 0; j < cols; j++)
+                A[i][j] = sc.nextInt();
+
+        System.out.println("Enter elements of Matrix B:");
+        for (int i = 0; i < rows; i++)
+            for (int j = 0; j < cols; j++)
+                B[i][j] = sc.nextInt();
+
+        int[][] sum = addMatrices(A, B);
+
+        System.out.println("Resultant Matrix after Addition:");
+        printMatrix(sum);
+    }
+}
+
+
+
+
+
+
+
+import java.util.*;
+
+class Item {
+    int weight;
+    int profit;
+
+    public Item(int weight, int profit) {
+        this.weight = weight;
+        this.profit = profit;
+    }
+
+    // Calculate profit-to-weight ratio
+    double getRatio() {
+        return (double) profit / weight;
+    }
+}
+
+public class FractionalKnapsack {
+
+    // Function to solve fractional knapsack
+    public static double fractionalKnapsack(Item[] items, int capacity) {
+        // Sort items by profit/weight ratio in descending order
+        Arrays.sort(items, (a, b) -> Double.compare(b.getRatio(), a.getRatio()));
+
+        double totalProfit = 0.0;
+        int currentWeight = 0;
+
+        for (Item item : items) {
+            if (currentWeight + item.weight <= capacity) {
+                // Take the whole item
+                currentWeight += item.weight;
+                totalProfit += item.profit;
+            } else {
+                // Take fraction of the item
+                int remain = capacity - currentWeight;
+                totalProfit += item.getRatio() * remain;
+                break; // Knapsack is full
+            }
+        }
+
+        return totalProfit;
+    }
+
+    // Main method
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter number of items: ");
+        int n = sc.nextInt();
+
+        Item[] items = new Item[n];
+        for (int i = 0; i < n; i++) {
+            System.out.print("Enter weight and profit for item " + (i + 1) + ": ");
+            int w = sc.nextInt();
+            int p = sc.nextInt();
+            items[i] = new Item(w, p);
+        }
+
+        System.out.print("Enter knapsack capacity: ");
+        int capacity = sc.nextInt();
+
+        double maxProfit = fractionalKnapsack(items, capacity);
+        System.out.printf("Maximum profit: %.2f\n", maxProfit);
+    }
+}
+

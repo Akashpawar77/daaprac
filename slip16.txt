@@ -1,0 +1,91 @@
+import java.util.Scanner; 
+ 
+public class Fibonacci { 
+    public static void main(String[] args) { 
+        Scanner sc = new Scanner(System.in); 
+        System.out.print("Enter the number of terms: "); 
+        int n = sc.nextInt(); 
+ 
+        System.out.println("Fibonacci series:"); 
+        for (int i = 0; i < n; i++) { 
+            System.out.print(fibonacci(i) + " "); 
+        } 
+    } 
+ 
+    static int fibonacci(int n) { 
+        if (n <= 1) return n; 
+        return fibonacci(n - 1) + fibonacci(n - 2); 
+    } 
+} 
+
+
+
+
+
+
+
+
+import java.io.*;
+import java.util.*;
+
+public class LinearSearchFromFile {
+
+    // Function to read numbers from a file and return as an array
+    public static int[] readNumbersFromFile(String filename) {
+        List<Integer> numberList = new ArrayList<>();
+        try {
+            File file = new File(filename);
+            Scanner sc = new Scanner(file);
+
+            while (sc.hasNextInt()) {
+                numberList.add(sc.nextInt());
+            }
+            sc.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found: " + filename);
+            return new int[0];
+        }
+
+        // Convert List to Array
+        int[] numbers = new int[numberList.size()];
+        for (int i = 0; i < numberList.size(); i++) {
+            numbers[i] = numberList.get(i);
+        }
+
+        return numbers;
+    }
+
+    // Function to perform linear search
+    public static int linearSearch(int[] arr, int key) {
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == key)
+                return i; // return index if found
+        }
+        return -1; // not found
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter file name (e.g., numbers.txt): ");
+        String filename = sc.nextLine();
+
+        int[] numbers = readNumbersFromFile(filename);
+
+        if (numbers.length == 0) {
+            System.out.println("No numbers to search.");
+            return;
+        }
+
+        System.out.print("Enter number to search: ");
+        int key = sc.nextInt();
+
+        int index = linearSearch(numbers, key);
+
+        if (index != -1) {
+            System.out.println("Number found at index: " + index);
+        } else {
+            System.out.println("Number not found.");
+        }
+    }
+}

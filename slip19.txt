@@ -1,0 +1,104 @@
+import java.util.Scanner; 
+ 
+public class MatrixSums { 
+    public static void main(String[] args) { 
+        Scanner sc = new Scanner(System.in); 
+        int[][] matrix = new int[3][3]; 
+        System.out.println("Enter 3x3 matrix elements:"); 
+ 
+        for (int i = 0; i < 3; i++) { 
+            for (int j = 0; j < 3; j++) { 
+                matrix[i][j] = sc.nextInt(); 
+            } 
+        } 
+ 
+        printRowSum(matrix); 
+        printColumnSum(matrix); 
+        printDiagonalSum(matrix); 
+    } 
+ 
+    static void printRowSum(int[][] matrix) { 
+        for (int i = 0; i < 3; i++) { 
+            int sum = 0; 
+            for (int j = 0; j < 3; j++) { 
+                sum += matrix[i][j]; 
+            } 
+            System.out.println("Sum of row " + (i + 1) + ": " + sum); 
+        } 
+    } 
+ 
+    static void printColumnSum(int[][] matrix) { 
+        for (int j = 0; j < 3; j++) { 
+            int sum = 0; 
+            for (int i = 0; i < 3; i++) { 
+                sum += matrix[i][j]; 
+            } 
+            System.out.println("Sum of column " + (j + 1) + ": " + sum); 
+        } 
+    } 
+ 
+    static void printDiagonalSum(int[][] matrix) { 
+        int primary = 0, secondary = 0; 
+        for (int i = 0; i < 3; i++) { 
+            primary += matrix[i][i]; 
+            secondary += matrix[i][2 - i]; 
+        } 
+        System.out.println("Primary diagonal sum: " + primary); 
+        System.out.println("Secondary diagonal sum: " + secondary); 
+    } 
+} 
+
+
+
+
+
+
+
+
+
+
+import java.util.Scanner;
+import java.util.Arrays;
+
+public class BubbleSort {
+    
+    // Bubble Sort Function
+    public static void bubbleSort(int[] arr) {
+        int n = arr.length;
+        boolean swapped;
+
+        for (int i = 0; i < n - 1; i++) {
+            swapped = false;
+
+            for (int j = 0; j < n - 1 - i; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    // Swap arr[j] and arr[j+1]
+                    int temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                    swapped = true;
+                }
+            }
+
+            // Optimization: Stop if no swaps occurred (Best Case)
+            if (!swapped) break;
+        }
+    }
+
+    // Main Function
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter number of elements: ");
+        int n = sc.nextInt();
+        
+        int[] arr = new int[n];
+        System.out.println("Enter elements:");
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+
+        System.out.println("Original array: " + Arrays.toString(arr));
+        bubbleSort(arr);
+        System.out.println("Sorted array:   " + Arrays.toString(arr));
+    }
+}

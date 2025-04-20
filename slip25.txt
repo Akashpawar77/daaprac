@@ -1,0 +1,131 @@
+import java.util.Scanner;
+
+public class MatrixMultiplication {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Input the dimensions of the matrices
+        System.out.print("Enter number of rows for Matrix A: ");
+        int rowsA = scanner.nextInt();
+        System.out.print("Enter number of columns for Matrix A (and rows for Matrix B): ");
+        int colsA = scanner.nextInt();
+        System.out.print("Enter number of columns for Matrix B: ");
+        int colsB = scanner.nextInt();
+
+        // Declare and input matrices A and B
+        int[][] matrixA = new int[rowsA][colsA];
+        int[][] matrixB = new int[colsA][colsB];
+        int[][] resultMatrix = new int[rowsA][colsB];
+
+        System.out.println("Enter elements of Matrix A:");
+        for (int i = 0; i < rowsA; i++) {
+            for (int j = 0; j < colsA; j++) {
+                matrixA[i][j] = scanner.nextInt();
+            }
+        }
+
+        System.out.println("Enter elements of Matrix B:");
+        for (int i = 0; i < colsA; i++) {
+            for (int j = 0; j < colsB; j++) {
+                matrixB[i][j] = scanner.nextInt();
+            }
+        }
+
+        // Matrix multiplication using iterative approach
+        for (int i = 0; i < rowsA; i++) {
+            for (int j = 0; j < colsB; j++) {
+                resultMatrix[i][j] = 0; // Initialize the result element to 0
+                for (int k = 0; k < colsA; k++) {
+                    resultMatrix[i][j] += matrixA[i][k] * matrixB[k][j];
+                }
+            }
+        }
+
+        // Output the result
+        System.out.println("Resultant Matrix after multiplication:");
+        for (int i = 0; i < rowsA; i++) {
+            for (int j = 0; j < colsB; j++) {
+                System.out.print(resultMatrix[i][j] + " ");
+            }
+            System.out.println();
+        }
+
+        scanner.close();
+    }
+}
+
+
+
+
+
+
+
+
+
+
+import java.util.*;
+
+class Item {
+    int weight;
+    int profit;
+
+    public Item(int weight, int profit) {
+        this.weight = weight;
+        this.profit = profit;
+    }
+
+    // Calculate profit-to-weight ratio
+    double getRatio() {
+        return (double) profit / weight;
+    }
+}
+
+public class FractionalKnapsack {
+
+    // Function to solve fractional knapsack
+    public static double fractionalKnapsack(Item[] items, int capacity) {
+        // Sort items by profit/weight ratio in descending order
+        Arrays.sort(items, (a, b) -> Double.compare(b.getRatio(), a.getRatio()));
+
+        double totalProfit = 0.0;
+        int currentWeight = 0;
+
+        for (Item item : items) {
+            if (currentWeight + item.weight <= capacity) {
+                // Take the whole item
+                currentWeight += item.weight;
+                totalProfit += item.profit;
+            } else {
+                // Take fraction of the item
+                int remain = capacity - currentWeight;
+                totalProfit += item.getRatio() * remain;
+                break; // Knapsack is full
+            }
+        }
+
+        return totalProfit;
+    }
+
+    // Main method
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter number of items: ");
+        int n = sc.nextInt();
+
+        Item[] items = new Item[n];
+        for (int i = 0; i < n; i++) {
+            System.out.print("Enter weight and profit for item " + (i + 1) + ": ");
+            int w = sc.nextInt();
+            int p = sc.nextInt();
+            items[i] = new Item(w, p);
+        }
+
+        System.out.print("Enter knapsack capacity: ");
+        int capacity = sc.nextInt();
+
+        double maxProfit = fractionalKnapsack(items, capacity);
+        System.out.printf("Maximum profit: %.2f\n", maxProfit);
+    }
+}

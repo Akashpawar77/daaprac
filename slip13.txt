@@ -1,0 +1,87 @@
+import java.util.Scanner; 
+ 
+public class MatrixSums { 
+    public static void main(String[] args) { 
+        Scanner sc = new Scanner(System.in); 
+        int[][] matrix = new int[3][3]; 
+        System.out.println("Enter 3x3 matrix elements:"); 
+ 
+        for (int i = 0; i < 3; i++) { 
+            for (int j = 0; j < 3; j++) { 
+                matrix[i][j] = sc.nextInt(); 
+            } 
+        } 
+ 
+        printRowSum(matrix); 
+        printColumnSum(matrix); 
+        printDiagonalSum(matrix); 
+    } 
+ 
+    static void printRowSum(int[][] matrix) { 
+        for (int i = 0; i < 3; i++) { 
+            int sum = 0; 
+            for (int j = 0; j < 3; j++) { 
+                sum += matrix[i][j]; 
+            } 
+            System.out.println("Sum of row " + (i + 1) + ": " + sum); 
+        } 
+    } 
+ 
+    static void printColumnSum(int[][] matrix) { 
+        for (int j = 0; j < 3; j++) { 
+            int sum = 0; 
+            for (int i = 0; i < 3; i++) { 
+                sum += matrix[i][j]; 
+            } 
+            System.out.println("Sum of column " + (j + 1) + ": " + sum); 
+        } 
+    } 
+ 
+    static void printDiagonalSum(int[][] matrix) { 
+        int primary = 0, secondary = 0; 
+        for (int i = 0; i < 3; i++) { 
+            primary += matrix[i][i]; 
+            secondary += matrix[i][2 - i]; 
+        } 
+        System.out.println("Primary diagonal sum: " + primary); 
+        System.out.println("Secondary diagonal sum: " + secondary); 
+    } 
+} 
+
+
+
+
+
+
+import java.util.PriorityQueue; 
+import java.util.Scanner; 
+public class OptimalMergePattern { 
+public static void main(String[] args) { 
+Scanner scanner = new Scanner(System.in); 
+// Input the number of files 
+System.out.println("Enter the number of files:"); 
+int n = scanner.nextInt(); 
+// Input the sizes of the files 
+System.out.println("Enter the sizes of the files:"); 
+PriorityQueue<Integer> minHeap = new PriorityQueue<>(); // Min-heap to store file sizes 
+for (int i = 0; i < n; i++) { 
+int fileSize = scanner.nextInt(); 
+minHeap.add(fileSize); // Add file sizes to the heap 
+} 
+int totalCost = 0; // Variable to store the total cost of merging 
+// Process the files until only one file remains in the heap 
+while (minHeap.size() > 1) { 
+// Extract the two smallest file sizes 
+int first = minHeap.poll(); 
+int second = minHeap.poll(); 
+// Calculate the cost of merging these two files 
+int mergeCost = first + second; 
+totalCost += mergeCost; // Add merge cost to the total cost 
+// Add the merged file back to the heap 
+minHeap.add(mergeCost); 
+} 
+// Output the total cost of all merges 
+System.out.println("The total cost of optimal merging is: " + totalCost); 
+scanner.close(); 
+} 
+}
